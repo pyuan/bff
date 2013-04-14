@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="210" height="130"
+	horizontalScrollPolicy="off" verticalScrollPolicy="off" buttonMode="true"
+	rollOver="onMouseOver();" rollOut="onMouseOut();" creationComplete="init();">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import mx.binding.utils.BindingUtils;
+			import com.constants.Constants;
+			
+			[Bindable]
+			public var isSelected:Boolean = false;
+			
+			[Bindable]
+			public var thumbnail:String = "";
+			
+			private function init():void
+			{
+				BindingUtils.bindSetter(onSelected, this, "isSelected");
+			}
+			
+			private function onSelected(isSelected:Boolean):void
+			{
+				if(isSelected){
+					bg.setStyle('borderColor', Constants.COLOR_GREEN);
+					bg.alpha = 0.85;
+				}
+				else{
+					bg.setStyle('borderColor', 0xffffff);
+					bg.alpha = 0.5;
+				}
+			}
+			
+			private function onMouseOver():void
+			{
+				if(!isSelected){
+					bg.alpha = 0.85;
+				}
+			}
+			
+			private function onMouseOut():void
+			{
+				if(!isSelected){
+					bg.alpha = 0.5;
+				}
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Canvas id="bg" width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		cornerRadius="25" borderStyle="solid" borderThickness="8"
+		backgroundColor="0x000000"/>
+		
+	<mx:Image source="{thumbnail}" maintainAspectRatio="true" smoothBitmapContent="true"
+		horizontalCenter="0" verticalCenter="0" mask="{thumbMask}"/>
+		
+	<mx:Canvas id="thumbMask" width="{this.width-10}" height="{this.height-10}" 
+		horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		horizontalCenter="0" verticalCenter="0"
+		cornerRadius="20" borderStyle="solid" borderThickness="5"/>
+	
+</mx:Canvas>

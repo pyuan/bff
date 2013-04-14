@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	horizontalScrollPolicy="off" verticalScrollPolicy="off" height="500"
+	xmlns:ui="com.views.ui.*" show="onShow();" creationComplete="onShow();">
+	
+	<mx:Script>
+		<![CDATA[
+		
+			import com.models.Model;
+			import com.views.ui.SelectionButton;
+			import com.controllers.ApplicationController;
+			import com.constants.Constants;
+			import com.constants.Embeds;
+
+			private function selectCharacter(id:int):void
+			{
+				for(var i:int=0; i<container.numChildren; i++){
+					var button:SelectionButton = container.getChildAt(i) as SelectionButton;
+					button.isSelected = false;
+				}
+				
+				button = container.getChildAt(id) as SelectionButton;
+				button.isSelected = true;
+				
+				var model:Model = Model.getInstance();
+				model.selectedCharacter = id;
+			}
+			
+			private function onShow():void
+			{
+				var model:Model = Model.getInstance();
+				selectCharacter(model.selectedCharacter);
+			}
+			
+		]]>
+	</mx:Script>
+		
+	<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		horizontalCenter="0" verticalCenter="0">
+		
+		<mx:Image source="{Embeds.BG_SELECTION}" maintainAspectRatio="true"
+			smoothBitmapContent="true"/>
+		
+		<mx:HBox id="container" horizontalCenter="0" verticalCenter="0"
+			horizontalScrollPolicy="off" verticalScrollPolicy="off"
+			verticalAlign="middle" horizontalGap="25">
+			
+			<ui:SelectionButton thumbnail="assets/images/thumbs/char1.png" click="selectCharacter(0);"/>
+			
+			<ui:SelectionButton thumbnail="assets/images/thumbs/char2.png" click="selectCharacter(1);"/>
+			
+			<ui:SelectionButton thumbnail="assets/images/thumbs/char3.png" click="selectCharacter(2);"/>
+			
+		</mx:HBox>
+		
+	</mx:Canvas>
+	
+	<mx:HBox horizontalScrollPolicy="off" verticalScrollPolicy="off"
+			 horizontalCenter="0" bottom="10"
+			 verticalAlign="middle" horizontalGap="10">
+	
+		<ui:GenericButton label="home" left="0"
+			click="ApplicationController.getInstance().changeView(Constants.SCREEN_NAME_HOME);"/>
+			
+		<mx:Label id="heading" x="50" y="50" text="select your character" styleName="subheading"/>
+			
+		<ui:GenericButton label="next" right="0" 
+			click="ApplicationController.getInstance().changePlayView(Constants.SCREEN_NAME_ARENA);"/>
+		
+	</mx:HBox>
+		
+</mx:Canvas>

@@ -1,0 +1,145 @@
+/* CSS file */
+.homeButton
+{
+	font-anti-alias-type: advanced;
+	font-family: ShowCard;
+	font-weight: normal;
+	font-size: 50;
+	text-roll-over-color: #dbe266;
+	text-selected-color: #ffffff;
+	disabled-color: #888888;
+	color: #ffffff;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	skin: ClassReference(null);
+	overIcon: Embed(source="assets/images/icon_homebutton_over.png");
+	upIcon: Embed(source="assets/images/icon_homebutton_up.png");
+	downIcon: Embed(source="assets/images/icon_homebutton_up.png");
+}
+
+.genericButton
+{
+	font-anti-alias-type: advanced;
+	font-family: ShowCard;
+	font-weight: normal;
+	font-size: 30;
+	text-roll-over-color: #aae874;
+	text-selected-color: #172c43;
+	disabled-color: #2e2e2d;
+	color: #172c43;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-left: 5px;
+	padding-right: 5px;
+	skin: ClassReference(null);
+	up-skin:
+        Embed(source="/assets/images/bg_generic_button_up.png",
+        scaleGridLeft="13", scaleGridTop="12", 
+        scaleGridRight="18", scaleGridBottom="17");
+    over-skin:
+        Embed(source="/assets/images/bg_generic_button_over.png",
+        scaleGridLeft="13", scaleGridTop="12", 
+        scaleGridRight="18", scaleGridBottom="17");
+    down-skin:
+    	Embed(source="/assets/images/bg_generic_button_up.png",
+        scaleGridLeft="13", scaleGridTop="12", 
+        scaleGridRight="18", scaleGridBottom="17");
+    disabled-skin:
+    	Embed(source="/assets/images/bg_generic_button_disabled.png",
+        scaleGridLeft="13", scaleGridTop="12", 
+        scaleGridRight="18", scaleGridBottom="17");
+}
+
+.heading
+{
+	fontAntiAliasType: "advanced";
+	fontFamily: "ShowCard";
+	fontSize: 50; 
+	fontWeight: "normal";
+	color: #2f588a; 	
+}
+
+.subheading
+{
+	fontAntiAliasType: "advanced";
+	fontFamily: "ShowCard";
+	fontSize: 35; 
+	fontWeight: "normal";
+	color: #ffffff; 	
+}
+
+.leaderboardTxt
+{
+	fontAntiAliasType: "advanced";
+	fontFamily: "ShowCard";
+	fontSize: 25; 
+	fontWeight: "normal";
+	color: #ffffff;
+}
+
+ScrollBar 
+{
+ 	up-arrow-skin: ClassReference(null);
+ 	down-arrow-skin: ClassReference(null);
+ 	trackSkin: Embed(source="assets/images/scrollbar/track.png", 
+ 		scaleGridLeft="2", scaleGridTop="4", scaleGridRight="3", scaleGridBottom="19");
+ 	thumbUpSkin: Embed(source="assets/images/scrollbar/thumb_up.png", 
+ 		scaleGridLeft="2", scaleGridTop="4", scaleGridRight="3", scaleGridBottom="19");
+ 	thumbOverSkin: Embed(source="assets/images/scrollbar/thumb_over.png", 
+ 		scaleGridLeft="2", scaleGridTop="4", scaleGridRight="3", scaleGridBottom="19");
+ 	thumbDownSkin: Embed(source="assets/images/scrollbar/thumb_down.png", 
+ 		scaleGridLeft="2", scaleGridTop="4", scaleGridRight="3", scaleGridBottom="19");
+}
+
+ComboBox
+{
+	dropdownStyleName: "comboDropDown";
+	fontFamily: BauhausBold;
+	font-anti-alias-type: advanced;
+	font-style: bold;
+	font-size: 16;
+	color: #ffffff;
+	/*rollOverColor: #ff7200;
+	selectionColor: #b31c1c;*/
+	disabledSkin: Embed(source="assets/images/combobox/bg_disabled.png", 
+		scaleGridLeft="8", scaleGridTop="8", scaleGridRight="12", scaleGridBottom="12");
+  	downSkin: Embed(source="assets/images/combobox/bg_up.png", 
+		scaleGridLeft="8", scaleGridTop="8", scaleGridRight="12", scaleGridBottom="12");
+  	overSkin: Embed(source="assets/images/combobox/bg_over.png", 
+		scaleGridLeft="8", scaleGridTop="8", scaleGridRight="12", scaleGridBottom="12");
+  	upSkin: Embed(source="assets/images/combobox/bg_up.png", 
+		scaleGridLeft="8", scaleGridTop="8", scaleGridRight="12", scaleGridBottom="12");
+}
+
+.comboDropDown
+{
+	backgroundColor: #000000;
+	backgroundAlpha: 0.85;
+	border-thickness: 0;
+	padding-bottom: 5;
+	padding-left: 5;
+	padding-right: 5;
+	padding-top: 5;
+	cornerRadius: 5;	
+}
+
+List
+{
+	editorHeightOffset: 10px;
+	backgroundAlpha: 0;
+	borderThickness: 0px;
+	fontFamily: ShowCard;
+	fontSize: 20px;
+	color: #cccccc;
+	textRollOverColor: #2f588a;
+    textSelectedColor: #1b314c;
+    rollOverColor: #a5e070;
+    selectionColor: #a5e070;
+}
+
+
+
+
+

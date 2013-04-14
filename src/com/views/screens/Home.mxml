@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	horizontalScrollPolicy="off" verticalScrollPolicy="off"
+	xmlns:ui="com.views.ui.*">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import com.controllers.ApplicationController;
+			import com.constants.Constants;
+			import com.constants.Embeds;
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		width="1024" height="768"
+		horizontalCenter="0" verticalCenter="0">
+		
+		<mx:VBox horizontalScrollPolicy="off" verticalScrollPolicy="off"
+			left="122" top="112" horizontalAlign="left" verticalGap="50">
+			
+			<mx:Image source="{Embeds.LOGO}" smoothBitmapContent="true" maintainAspectRatio="true"/>
+			
+			<mx:VBox horizontalScrollPolicy="off" verticalScrollPolicy="off"
+				horizontalAlign="left" verticalGap="0" paddingLeft="35">
+				
+				<ui:HomeButton label="play"
+					click="ApplicationController.getInstance().changeView(Constants.SCREEN_NAME_PLAY);"/>
+				
+				<ui:HomeButton label="leaderboard"
+					click="ApplicationController.getInstance().changeView(Constants.SCREEN_NAME_LEADERBOARD);"/>
+				
+				<ui:HomeButton label="how to play?" 
+					click="ApplicationController.getInstance().changeView(Constants.SCREEN_NAME_INSTRUCTIONS);"/>
+					
+				<ui:HomeButton label="credits"
+					click="ApplicationController.getInstance().changeView(Constants.SCREEN_NAME_CREDITS);"/>
+			
+			</mx:VBox>
+			
+		</mx:VBox>
+		
+	</mx:Canvas>
+	
+</mx:Canvas>

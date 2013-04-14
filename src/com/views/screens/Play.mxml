@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	horizontalScrollPolicy="off" verticalScrollPolicy="off" 
+	xmlns:ui="com.views.ui.*" xmlns:screens="com.views.screens.*"
+	show="views.selectedIndex = 0;">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import com.constants.Constants;
+			import com.constants.Embeds;
+			import com.controllers.ApplicationController;
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		width="1024" height="768"
+		horizontalCenter="0" verticalCenter="0">
+		
+		<mx:VBox horizontalScrollPolicy="off" verticalScrollPolicy="off"
+			horizontalCenter="0" y="150" horizontalAlign="center">
+			
+			<mx:ViewStack id="views" width="100%" height="100%">
+				
+				<screens:PlayCharacter name="{Constants.SCREEN_NAME_CHARACTER}"/>
+				<screens:PlayEnvironment name="{Constants.SCREEN_NAME_ARENA}"/>
+				<screens:PlayCrew name="{Constants.SCREEN_NAME_CREW}"/>
+				
+			</mx:ViewStack>
+				
+		</mx:VBox>
+		
+		<mx:Image id="logo" source="{Embeds.LOGO_REFLECT}" x="87" y="92"
+			maintainAspectRatio="true" smoothBitmapContent="true" buttonMode="true"
+			click="ApplicationController.getInstance().changeView(Constants.SCREEN_NAME_HOME);"/>
+		
+	</mx:Canvas>
+	
+</mx:Canvas>

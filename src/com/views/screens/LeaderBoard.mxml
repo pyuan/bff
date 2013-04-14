@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	horizontalScrollPolicy="off" verticalScrollPolicy="off" xmlns:ui="com.views.ui.*"
+	show="onShow();">
+	
+	<mx:Script>
+		<![CDATA[
+		
+			import com.models.FriendModel;
+			import com.views.ui.LeaderBoardListItem;
+			import com.models.Model;
+			
+			import com.controllers.ApplicationController;
+			import com.controllers.AudioController;
+			import com.constants.Constants;
+			import com.constants.Embeds;
+			import com.models.Model;
+			
+			private function onShow():void
+			{
+				ApplicationController.getInstance().sortFriendsByBeatCount();
+				list.removeAllChildren();
+				
+				var model:Model = Model.getInstance();
+				var num:int = model.getFriends().length > Constants.NUM_LEADERBOARD_FRIENDS ? 
+					Constants.NUM_LEADERBOARD_FRIENDS : model.getFriends().length;
+				for(var i:int=0; i<num; i++)
+				{
+					var item:LeaderBoardListItem = new LeaderBoardListItem();
+					var friendModel:FriendModel = model.getFriends().getItemAt(i) as FriendModel;
+					item.friendModel = friendModel;
+					var bgColor:uint = 0x1f201f;
+					if(i%2 == 0){
+						bgColor = 0x5d5d5b;
+					}
+					item.setStyle('backgroundColor', bgColor);
+					item.setStyle('backgroundAlpha', 0.25);
+					list.addChild(item); 
+				}
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		width="1024" height="768"
+		horizontalCenter="0" verticalCenter="0">
+		
+		<mx:Label id="heading" x="50" y="50" text="LEADERBOARD" styleName="heading"/>
+			
+		<mx:Label id="nameLabel" fontAntiAliasType="advanced" fontFamily="ShowCard"
+			fontSize="25" fontWeight="normal" color="{Constants.COLOR_GREEN}" 
+			left="{list.x - 10}" y="{heading.y + heading.height + 10}" text="friends"/>
+			
+		<mx:Label id="beatCountLabel" fontAntiAliasType="advanced" fontFamily="ShowCard"
+			fontSize="25" fontWeight="normal" color="{Constants.COLOR_GREEN}" 
+			x="{list.x + list.width - beatCountLabel.width - 20}" 
+			y="{heading.y + heading.height + 10}" text="beat count"/>
+		
+		<mx:VBox id="list" horizontalScrollPolicy="off" verticalScrollPolicy="auto"
+			horizontalCenter="0" y="{heading.y + heading.height + 50}" width="800" height="350"
+			horizontalAlign="center" verticalGap="5">
+		
+		</mx:VBox>
+		
+		<mx:HBox horizontalScrollPolicy="off" verticalScrollPolicy="off"
+			bottom="5" verticalAlign="middle" horizontalGap="15">
+		
+			<mx:Image source="{Embeds.LOGO_REFLECT}" x="87" y="92"
+				maintainAspectRatio="true" smoothBitmapContent="true"/>
+			
+			<ui:GenericButton label="home" 
+				click="ApplicationController.getInstance().changeView(Constants.SCREEN_NAME_HOME);
+					AudioController.getInstance().playSpecificBackgroundMusic(Constants.AUDIO_BACKGROUND_ID_INTRO);"/>
+			
+			<ui:GenericButton label="play again!" 
+				click="ApplicationController.getInstance().changeView(Constants.SCREEN_NAME_PLAY);
+					AudioController.getInstance().playSpecificBackgroundMusic(Constants.AUDIO_BACKGROUND_ID_INTRO);"/>	
+				
+		</mx:HBox>
+		
+		<mx:Image source="assets/images/fb_btn.png" buttonMode="true"
+			bottom="85" right="10" click="ApplicationController.getInstance().postFacebookStatus();"/>
+		
+	</mx:Canvas>
+	
+</mx:Canvas>

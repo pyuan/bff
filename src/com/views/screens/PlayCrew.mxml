@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	horizontalScrollPolicy="off" verticalScrollPolicy="off" height="500" 
+	xmlns:ui="com.views.ui.*" show="onShow();" creationComplete="onShow();">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.views.ui.ProfilePic;
+			import mx.controls.Image;
+			import com.models.FriendModel;
+		
+			import com.models.Model;
+			import com.controllers.ApplicationController;
+			import com.constants.Constants;
+			import com.constants.Embeds;
+			
+			private function onShow():void
+			{
+				var model:Model = Model.getInstance();
+				ApplicationController.getInstance().sortFriendsByName();
+				crewList.dataProvider = model.getFriends();
+				showCrew();
+			}
+			
+			private function showCrew():void
+			{
+				var model:Model = Model.getInstance();
+				crewContainer.removeAllChildren();
+				for(var i:int=0; i<model.crew.length; i++){
+					var f:FriendModel = model.crew.getItemAt(i) as FriendModel;
+					var pic:ProfilePic = new ProfilePic();
+					pic.friend = f;
+					crewContainer.addChild(pic);
+				}
+			}
+			
+			private function addToCrew():void
+			{
+				var friendModel:FriendModel = crewList.selectedItem as FriendModel;
+				var model:Model = Model.getInstance();
+				model.crew.addItem(friendModel);
+				if(model.crew.length > Constants.NUM_CREW){
+					model.crew.removeItemAt(0);
+				}
+				showCrew();
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		horizontalCenter="0" verticalCenter="0">
+		
+		<mx:Image source="{Embeds.BG_SELECTION}" maintainAspectRatio="true"
+			smoothBitmapContent="true"/>
+		
+		<mx:VBox id="container" horizontalCenter="0" verticalCenter="0" width="500"
+			horizontalScrollPolicy="off" verticalScrollPolicy="off" 
+			horizontalAlign="center" verticalGap="15">
+			
+			<mx:HBox width="100%" verticalAlign="middle"
+				horizontalGap="10">
+				
+				<mx:Label text="{'Your crew (max ' + Constants.NUM_CREW + '): '}" styleName="subheading"/>
+				
+				<mx:HBox id="crewContainer" width="100%" verticalAlign="middle"
+					horizontalGap="10"/>
+				
+			</mx:HBox>
+			
+			<mx:List id="crewList" width="100%" height="200" labelField="name"/>
+			
+			<ui:GenericButton label="Add Friend" click="addToCrew();"/>
+				
+		</mx:VBox>
+		
+	</mx:Canvas>
+	
+	<mx:HBox horizontalScrollPolicy="off" verticalScrollPolicy="off"
+			 horizontalCenter="0" bottom="10"
+			 verticalAlign="middle" horizontalGap="10">
+	
+		<ui:GenericButton label="previous" left="0"
+			click="ApplicationController.getInstance().changePlayView(Constants.SCREEN_NAME_ARENA);"/>
+			
+		<mx:Label id="heading" x="50" y="50" text="select your crew" styleName="subheading"/>
+			
+		<ui:GenericButton label="play" right="0"
+			click="ApplicationController.getInstance().changeView(Constants.SCREEN_NAME_GAME);"/>
+		
+	</mx:HBox>
+	
+</mx:Canvas>

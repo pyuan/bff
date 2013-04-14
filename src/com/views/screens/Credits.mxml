@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	horizontalScrollPolicy="off" verticalScrollPolicy="off" xmlns:ui="com.views.ui.*">
+	
+	<mx:Script>
+		<![CDATA[
+			
+			import com.controllers.ApplicationController;
+			import com.constants.Constants;
+			import com.constants.Embeds;
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Canvas horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		width="1024" height="768"
+		horizontalCenter="0" verticalCenter="0">
+		
+		<mx:VBox horizontalScrollPolicy="off" verticalScrollPolicy="off"
+			horizontalCenter="0" verticalCenter="0"
+			horizontalAlign="center" verticalGap="25">
+		
+			<mx:Image source="{Embeds.SCREEN_CREDITS}"
+				maintainAspectRatio="true" smoothBitmapContent="true"
+				horizontalCenter="0" verticalCenter="0"/>
+			
+			<ui:GenericButton label="home" 
+				click="ApplicationController.getInstance().changeView(Constants.SCREEN_NAME_HOME);"/>
+			
+		</mx:VBox>
+		
+		<mx:Image source="{Embeds.LOGO_REFLECT}" x="87" y="92"
+			maintainAspectRatio="true" smoothBitmapContent="true"/>
+		
+	</mx:Canvas>
+	
+</mx:Canvas>

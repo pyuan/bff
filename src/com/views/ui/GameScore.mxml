@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	horizontalScrollPolicy="off" verticalScrollPolicy="off"
+	clipContent="true" height="50" creationComplete="init();">
+
+	<mx:Script>
+		<![CDATA[
+
+			import com.models.Model;
+			import mx.binding.utils.BindingUtils;
+			import com.constants.Constants;
+			import com.utils.StringUtil;
+			
+			private function init():void
+			{
+				redrawBg();
+				var model:Model = Model.getInstance();
+				BindingUtils.bindSetter(updateScore, model, "beats");
+				BindingUtils.bindSetter(updateScore, model, "time");
+			}
+			
+			private function updateScore(val:int):void
+			{
+				var model:Model = Model.getInstance();
+				var t:int = Constants.GAME_NUM_SECONDS-model.time;
+				var score:String = "Time Remaining: " + StringUtil.getTime(t) + ", Beat Downs: " + model.beats;
+				scoreTxt.text = score;
+			}
+			
+			override protected function measure():void
+		    {
+		        super.measure();
+		        this.minWidth = this.measuredWidth + 50;
+		        this.minHeight = this.measuredHeight + 10;
+		        redrawBg();
+		    }
+		    
+		    private function redrawBg():void
+		    {
+		    	this.graphics.clear();
+				var matrix:Matrix = new Matrix();
+				matrix.rotate(90);
+				this.graphics.beginGradientFill(GradientType.LINEAR, [0x1a1a1a, 0xcccccc], [1.0, 0.85], [128, 255], matrix);
+				this.graphics.drawRoundRectComplex(0, 0, this.minWidth, this.minHeight, 0, 0, 20, 20);
+				this.graphics.endFill();
+				
+				var shadow:DropShadowFilter = new DropShadowFilter();
+				shadow.blurX = shadow.blurY = 10;
+				shadow.alpha = 0.5;
+				shadow.angle = 90;
+				shadow.color = 0x000000;
+				shadow.distance = 5;
+				this.filters = [shadow];
+		    }
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Label id="scoreTxt" styleName="subheading" 
+		horizontalCenter="0" verticalCenter="0"/>
+	
+</mx:Canvas>

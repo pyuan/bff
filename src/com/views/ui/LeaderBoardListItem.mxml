@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%"
+	horizontalScrollPolicy="off" verticalScrollPolicy="off"
+	buttonMode="true" mouseChildren="false"
+	click="showProfile();" creationComplete="init();" xmlns:ui="com.views.ui.*">
+	
+	<mx:Script>
+		<![CDATA[
+		
+			import mx.controls.Image;
+			import com.models.FriendModel;
+			import mx.binding.utils.BindingUtils;
+			import com.constants.Constants;
+			import com.constants.Embeds;
+			import com.controllers.ApplicationController;
+			
+			[Bindable]
+			public var friendModel:FriendModel = new FriendModel(-1);
+			
+			[Bindable]
+			private var loaderContext:LoaderContext = new LoaderContext(true);
+			
+			private function init():void
+			{
+				BindingUtils.bindSetter(updateBeatCount, this, "friendModel");
+			}
+			
+			private function updateBeatCount(friendModel:FriendModel):void
+			{
+				marksContainer.removeAllChildren();
+				var num:int = Math.floor(friendModel.beatCount / 5);
+				for(var i:int=0; i<num; i++){
+					var mark:Image = new Image();
+					mark.source = Embeds.COUNT5;
+					marksContainer.addChild(mark);
+				}
+				
+				if(friendModel.beatCount > num*5){
+					var diff:int = friendModel.beatCount - num*5;
+					mark = new Image();
+					switch(diff){
+						case 4:
+							mark.source = Embeds.COUNT4;
+							break;
+						case 3:
+							mark.source = Embeds.COUNT3;
+							break;
+						case 2:
+							mark.source = Embeds.COUNT2;
+							break;
+						case 1:
+							mark.source = Embeds.COUNT1;
+							break;
+					}
+					marksContainer.addChild(mark);
+				}
+			}
+			
+			private function showProfile():void
+			{
+                ApplicationController.getInstance().showWebPage(friendModel.url);
+			}
+			
+		]]>
+	</mx:Script>
+		
+	<ui:ProfilePic id="picture" x="5" friend="{friendModel}"/>
+	
+	<mx:Label id="nameLabel" x="{picture.width + 10}" verticalCenter="0" styleName="leaderboardTxt"
+		text="{friendModel.name}"/>
+		
+	<mx:Label id="countLabel" styleName="leaderboardTxt" right="5" verticalCenter="0"
+		text="{friendModel.beatCount}" color="{Constants.COLOR_RED}"
+		visible="{friendModel.beatCount &gt; Constants.NUM_LEADERBOARD_MAX_MARK_COUNT || friendModel.beatCount == 0}"/>
+		
+	<mx:HBox id="marksContainer" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		right="5" verticalCenter="0" horizontalGap="0" verticalAlign="middle"
+		height="100%" visible="{friendModel.beatCount &lt; Constants.NUM_LEADERBOARD_MAX_MARK_COUNT || friendModel.beatCount != 0}"/>
+	
+</mx:Canvas>

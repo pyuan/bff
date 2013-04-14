@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
+	horizontalScrollPolicy="off" verticalScrollPolicy="off"
+	show="init();" xmlns:ui="com.views.ui.*">
+	
+	<mx:Script>
+		<![CDATA[
+		
+			import com.models.Model;
+			import com.constants.Constants;
+			import com.views.papervision.Environment;
+			import com.constants.Embeds;
+			import mx.binding.utils.BindingUtils;
+			import com.controllers.ApplicationController;
+			
+			private var environment:Environment;
+			
+			private function init():void
+			{
+				var model:Model = Model.getInstance();
+				
+				//initialize 3D environment
+				if(environment != null){
+					environmentContainer.rawChildren.removeChild(environment);
+				}
+				environment = new Environment();
+				environmentContainer.rawChildren.addChild(environment);
+				
+				//set background for screen
+				bg.source = Embeds.getEnvironmentTexture(model.selectedEnvironment, 
+					Constants.ENVIRONMENT_TEXTURE_TYPE_FLOOR);
+					
+				BindingUtils.bindSetter(onTogglePause, model, "gameIsPaused");
+				ApplicationController.getInstance().startGame();
+			}
+			
+			private function onTogglePause(isPaused:Boolean):void
+			{
+				pauseView.visible = isPaused;
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Image id="bg" maintainAspectRatio="false" smoothBitmapContent="true"
+		width="100%" height="100%"/>
+	
+	<mx:Canvas id="environmentContainer" width="100%" height="100%"
+		horizontalScrollPolicy="off" verticalScrollPolicy="off"/>
+		
+	<mx:Canvas id="pauseView" width="100%" height="100%"
+		horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<mx:Canvas width="100%" height="100%" 
+			backgroundColor="0x000000" backgroundAlpha="0.5"
+			horizontalScrollPolicy="off" verticalScrollPolicy="off"/>
+		<mx:Label text="Game paused!" styleName="subheading" 
+			horizontalCenter="0" verticalCenter="0"/>
+	</mx:Canvas>
+	
+	<ui:GameControlPanel id="controlPanel"/>
+	
+	<ui:GameScore id="score" left="50" y="0"/>
+	
+</mx:Canvas>
